@@ -1,6 +1,6 @@
 import time
 from pinecone import Pinecone , ServerlessSpec
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings import FastEmbedEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from app.core.config import get_settings
 
@@ -15,6 +15,9 @@ EMBEDDING_DIMENSIONS = {
     "all-minilm-l6-v2": 384,
     "all-minilm-l12-v2": 384,
     "all-mpnet-base-v2": 768,
+    "baai/bge-small-en-v1.5": 384,
+    "baai/bge-base-en-v1.5": 768,
+    "baai/bge-large-en-v1.5": 1024,
     "text-embedding-3-small": 1536,
     "text-embedding-3-large": 3072,
     "text-embedding-ada-002": 1536,
@@ -51,7 +54,9 @@ def get_embedding_dimension(model_name: str | None = None) -> int:
 def get_embeddings():
     global _embeddings
     if _embeddings is None:
-        _embeddings = HuggingFaceEmbeddings(
+        # FastEmbedEmbeddings uses ONNX runtime — no PyTorch required.
+        # All-MiniLM-L6-v2 equivalent at 384 dims, ~40MB ONNX model.
+        _embeddings = FastEmbedEmbeddings(
             model_name=settings.embedding_model,
         )
     return _embeddings

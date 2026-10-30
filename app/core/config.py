@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     pinecone_api_key: str = ""
     pinecone_index_name: str = "industry-agentic-rag-kb"
     pinecone_namespace: str = "langgraph-agentic-rag"
-    embedding_model: str = "all-MiniLM-L6-v2"
+    embedding_model: str = "BAAI/bge-small-en-v1.5"
     groq_model: str = "openai/gpt-oss-120b"
     top_k: int = 4
     max_retries: int = 1
