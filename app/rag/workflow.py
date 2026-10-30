@@ -195,7 +195,17 @@ def build_graph():
     graph.add_edge("insufficient", END)
     return graph.compile()
 
-agent_graph = build_graph()
+# Lazy-compiled graph — avoids loading sentence-transformers + LangGraph
+# into memory at startup (critical for low-memory cloud deployments).
+_agent_graph = None
+
+def _get_graph():
+    global _agent_graph
+    if _agent_graph is None:
+        logger.info("Compiling LangGraph agent graph (first request)...")
+        _agent_graph = build_graph()
+    return _agent_graph
+
 
 def ask(question: str):
     initial: AgentState = {
@@ -211,4 +221,4 @@ def ask(question: str):
         "trace": [],
         "citations": [],
     }
-    return agent_graph.invoke(initial)
+    return _get_graph().invoke(initial)

@@ -6,10 +6,11 @@ services:
     region: oregon
     plan: free
 
-    # Render injects PORT automatically; our Dockerfile already reads it
+    healthCheckPath: /api/health
+
     envVars:
       - key: GROQ_API_KEY
-        sync: false          # You'll paste the value in the Render dashboard
+        sync: false
       - key: GROQ_MODEL
         value: openai/gpt-oss-120b
       - key: TAVILY_API_KEY
@@ -25,10 +26,15 @@ services:
       - key: APP_ENV
         value: production
       - key: ADMIN_API_KEY
-        sync: false          # Set a strong secret in the dashboard
+        sync: false
       - key: MAX_RETRIES
         value: "1"
       - key: TOP_K
         value: "4"
-
-    healthCheckPath: /api/health
+      # Tell HuggingFace to use the pre-baked model cache from the Docker image
+      - key: TRANSFORMERS_OFFLINE
+        value: "1"
+      - key: HF_HOME
+        value: /app/.cache/huggingface
+      - key: SENTENCE_TRANSFORMERS_HOME
+        value: /app/.cache/sentence_transformers
