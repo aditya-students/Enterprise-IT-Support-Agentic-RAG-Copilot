@@ -22,7 +22,7 @@ services:
       - key: PINECONE_NAMESPACE
         value: langgraph-agentic-rag
       - key: EMBEDDING_MODEL
-        value: BAAI/bge-small-en-v1.5
+        value: all-MiniLM-L6-v2
       - key: APP_ENV
         value: production
       - key: ADMIN_API_KEY
