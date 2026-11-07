@@ -19,13 +19,13 @@ The **Enterprise IT Support Agentic RAG Copilot** is a production-ready AI assis
 ## Project Screenshots
 
 ### Image 1
-![Image 1](images/image1.png)
+![Image 1](images/Screenshot 2026-11-08 000612.png)
 
 ### Image 2
-![Image 2](images/image2.png)
+![Image 2](images/Screenshot 2026-11-08 000637.png)
 
 ### Image 3
-![Image 3](images/image3.png)
+![Image 3](images/Screenshot 2026-11-08 000709.png)
 
 ## ✨ Key Features
 
